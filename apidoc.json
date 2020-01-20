@@ -1,0 +1,13 @@
+{
+    "name": "Red",
+    "version": "1.0.0",
+    "description": "Red API文档",
+    "title": "Red API",
+    "url": "http://localhost:3000/red/api",
+    "sampleUrl": "http://localhost:3000/red/api",
+    "forceLanguage": "zh-cn",
+    "template": {
+        "withCompare": true,
+        "withGenerator": true
+    }
+}
