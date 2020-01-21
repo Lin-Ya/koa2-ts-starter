@@ -41,11 +41,7 @@ class UserController {
       } else if (username !== password) {
         ctx.setRes(null, '用户名或密码错误', 400)
       } else {
-        ctx.status = 200
-        ctx.body = {
-          msg: '登录成功',
-          time: new Date()
-        }
+        ctx.setRes({ user: { username } }, '登录成功', 200)
       }
     } catch (error) {
       ctx.body = error

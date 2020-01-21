@@ -1,0 +1,4 @@
+gulpfile.js
+/app/templates/**/*.js
+/app/public/**/*.js
+/dist

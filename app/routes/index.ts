@@ -1,10 +1,10 @@
 import { DefaultState, Context } from 'koa'
 import UserController from '../controllers/UserController'
-import { prefix } from '../config/index'
+import { apiPrefix } from '../config/index'
 import Router = require('koa-router')
 
 const router = new Router<DefaultState, Context>({
-  prefix
+  prefix: apiPrefix
 })
 
 router.post('/login', UserController.login)

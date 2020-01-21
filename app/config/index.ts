@@ -1,3 +1,4 @@
-const prefix = '/red/api'
+const apiPrefix = '/red/api'
+const viewPrefix = ''
 
-export { prefix }
+export { apiPrefix, viewPrefix }

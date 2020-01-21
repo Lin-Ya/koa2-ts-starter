@@ -1,4 +1,5 @@
-import router from './routes'
+import apiRouter from './routes/index'
+import viewRouter from './routes/view'
 import { Context, Next } from 'koa'
 import { setRes } from './utils/index'
 import path = require('path')
@@ -36,13 +37,18 @@ app.use(async (ctx: Context, next: Next) => {
 
 // 设置静态资源目录
 app.use(statics(path.join(__dirname, 'public')))
+app.use(statics(path.join(__dirname, 'templates')))
 
 // 设置模板引擎
-app.use(views(path.join(__dirname, 'templates')))
+app.use(
+  views(path.join(__dirname, 'templates'), {
+    extension: 'ejs'
+  })
+)
 // 请求body处理
 app.use(bodyParser())
 // 注入路由
-app.use(router.routes())
-app.use(router.allowedMethods())
+app.use(apiRouter.routes())
+app.use(viewRouter.routes())
 
 app.listen(PORT, listeningListener)
