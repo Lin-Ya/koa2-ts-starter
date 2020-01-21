@@ -1,4 +1,4 @@
-import { ParameterizedContext, Next } from 'koa'
+import { Context, Next } from 'koa'
 
 /**
  * @apiDefine User UserGroup
@@ -29,27 +29,26 @@ class UserController {
    * }
    * @apiVersion 1.0.0
    */
-  static async login (ctx: ParameterizedContext, next: Next): Promise<void> {
-    const username: string = ctx.request.body.username
-    const password: string = ctx.request.body.password
-    console.log('username', username)
-    console.log('password', password)
-    if (username !== 'admin') {
-      ctx.status = 404
-      ctx.body = {
-        msg: '用户不存在'
+  public static async login (ctx: Context, next: Next): Promise<void> {
+    try {
+      console.log(ctx.setRes)
+      const username: string = ctx.request.body.username
+      const password: string = ctx.request.body.password
+      console.log('username', username)
+      console.log('password', password)
+      if (username !== 'admin') {
+        ctx.setRes(null, '用户不存在', 404)
+      } else if (username !== password) {
+        ctx.setRes(null, '用户名或密码错误', 400)
+      } else {
+        ctx.status = 200
+        ctx.body = {
+          msg: '登录成功',
+          time: new Date()
+        }
       }
-    } else if (username !== password) {
-      ctx.status = 400
-      ctx.body = {
-        msg: '用户名或密码错误'
-      }
-    } else {
-      ctx.status = 200
-      ctx.body = {
-        msg: '登录成功',
-        time: new Date()
-      }
+    } catch (error) {
+      ctx.body = error
     }
     await next()
   }
