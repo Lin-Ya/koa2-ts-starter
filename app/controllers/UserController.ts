@@ -1,4 +1,5 @@
 import { Context, Next } from 'koa'
+import User from '../models/User'
 
 /**
  * @apiDefine User UserGroup
@@ -36,14 +37,25 @@ class UserController {
       const password: string = ctx.request.body.password
       console.log('username', username)
       console.log('password', password)
-      if (username !== 'admin') {
+      const result = await User.findOne({
+        where: {
+          username
+        }
+      })
+      console.log(result)
+      if (!result) {
         ctx.setRes(null, '用户不存在', 404)
-      } else if (username !== password) {
+        return
+      }
+      if (result.dataValues.password !== password) {
         ctx.setRes(null, '用户名或密码错误', 400)
       } else {
-        ctx.setRes({ user: { username } }, '登录成功', 200)
+        const user = Object.assign({}, result.dataValues)
+        delete user.password
+        ctx.setRes({ user }, '登录成功', 200)
       }
     } catch (error) {
+      ctx.status = 500
       ctx.body = error
     }
     await next()
