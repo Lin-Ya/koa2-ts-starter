@@ -8,4 +8,5 @@ const router = new Router<DefaultState, Context>({
 })
 
 router.post('/login', UserController.login)
+router.post('/registe', UserController.registe)
 export default router

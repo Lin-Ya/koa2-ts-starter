@@ -1,4 +1,8 @@
 const apiPrefix = '/red/api'
 const viewPrefix = ''
 
-export { apiPrefix, viewPrefix }
+const dbConfig = {
+  url: 'mongodb://localhost:27017/demo'
+}
+
+export { apiPrefix, viewPrefix, dbConfig }

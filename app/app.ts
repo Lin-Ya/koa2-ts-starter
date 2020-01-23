@@ -2,6 +2,7 @@ import apiRouter from './routes/index'
 import viewRouter from './routes/view'
 import { Context, Next } from 'koa'
 import { setRes } from './utils/index'
+import { dbConnect } from './mongoDB'
 import path = require('path')
 import Koa = require('koa')
 import views = require('koa-views')
@@ -28,6 +29,8 @@ const listeningListener = (): void => {
 }
 
 const app = new Koa()
+// 连接数据库
+dbConnect()
 
 // 添加自定义详情处理
 app.use(async (ctx: Context, next: Next) => {
